@@ -63,7 +63,7 @@
     </style>
     <script src="sdk/scripts/VSS.SDK.min.js"></script>
     <script type="text/javascript">
-      VSS.init({                        
+      VSS.init({
         explicitNotifyLoaded: true,
         usePlatformStyles: true
       });
@@ -72,13 +72,13 @@
         WidgetHelpers.IncludeWidgetStyles();
         VSS.register("ProjectTile", function () {
           var projectId = VSS.getWebContext().project.id;
-          
+
           var getBuildInfo = function (widgetSettings) {
             var settings = JSON.parse(widgetSettings.customSettings.data);
-            
+
             return RestClient.getClient().getBuilds(projectId, [parseInt(settings.definitionId)])
               .then(function (builds) {
-                var build = builds[0];                
+                var build = builds[0];
                 var $widget = $('.widget');
 
                 if (build.status === Contracts.BuildStatus.Completed) {
@@ -107,9 +107,7 @@
                   if (settings.definitionName) {
                     $widget.find('.title').text(settings.definitionName);
                   }
-                }               
-
-                return WidgetHelpers.WidgetStatusHelper.Success();
+                }
               })
               .catch(function (error) {
                 console.error(error);
@@ -120,21 +118,32 @@
           return {
             load: function (widgetSettings) {
               var settings = JSON.parse(widgetSettings.customSettings.data);
-              
-              if (settings && settings.definitionId && settings.pollInterval) {
-                return setInterval(getBuildInfo.bind(getBuildInfo, widgetSettings), settings.pollInterval);
+
+              if (settings && settings.definitionId) {
+                getBuildInfo(widgetSettings);
+
+                if (settings.pollInterval) {
+                  setInterval(getBuildInfo.bind(getBuildInfo, widgetSettings), settings.pollInterval);
+                }
+
+                return WidgetHelpers.WidgetStatusHelper.Success();
               }
-              
+
               return WidgetHelpers.WidgetStatusHelper.Unconfigured();
             },
             reload: function (widgetSettings) {
-              var settings = JSON.parse(widgetSettings.customSettings.data); 
-              
-              if (settings && settings.definitionId && settings.pollInterval) {
+              var settings = JSON.parse(widgetSettings.customSettings.data);
+
+              if (settings && settings.definitionId) {
                 getBuildInfo(widgetSettings);
-                return setInterval(getBuildInfo.bind(getBuildInfo, widgetSettings), settings.pollInterval);
+
+                if (settings.pollInterval) {
+                  setInterval(getBuildInfo.bind(getBuildInfo, widgetSettings), settings.pollInterval);
+                }
+
+                return WidgetHelpers.WidgetStatusHelper.Success();
               }
-              
+
               return WidgetHelpers.WidgetStatusHelper.Unconfigured();
             }
           }
@@ -144,9 +153,9 @@
     </script>
   </head>
   <body>
-    <div class="widget">      
+    <div class="widget">
       <h2 class="title">Project Tile</h2>
       <div class="big-count"></div>
-    </div>    
+    </div>
   </body>
 </html>
