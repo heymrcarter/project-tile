@@ -120,7 +120,7 @@
           return {
             load: function (widgetSettings) {
               var settings = JSON.parse(widgetSettings.customSettings.data);
-              console.log(settings);
+              
               if (settings && settings.definitionId && settings.pollInterval) {
                 return setInterval(getBuildInfo.bind(getBuildInfo, widgetSettings), settings.pollInterval);
               }
@@ -129,9 +129,9 @@
             },
             reload: function (widgetSettings) {
               var settings = JSON.parse(widgetSettings.customSettings.data); 
-              console.log('reload');             
-              console.log(settings);
+              
               if (settings && settings.definitionId && settings.pollInterval) {
+                getBuildInfo(widgetSettings);
                 return setInterval(getBuildInfo.bind(getBuildInfo, widgetSettings), settings.pollInterval);
               }
               
