@@ -1,7 +1,7 @@
 {
   "manifestVersion": 1,
   "id": "ProjectTile",
-  "version": "1.0.49",
+  "version": "1.0.51",
   "name": "Project Tile",
   "description": "A dashboard tile to show current build status",
   "publisher": "heymrcarter",
@@ -13,7 +13,7 @@
   "icons": {
     "default": "img/icon.jpg"
   },
-  "category": "Build and release",
+  "categories": ["Build and release"],
   "repository": {
     "type": "git",
     "uri": "https://github.com/heymrcarter/project-tile"
@@ -44,10 +44,6 @@
           {
             "rowSpan": 1,
             "columnSpan": 1
-          },
-          {
-            "rowSpan": 2,
-            "columnSpan": 2
           }
         ],
         "supportedScopes": ["project_team"]
