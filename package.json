@@ -1,0 +1,23 @@
+{
+  "name": "project-tile",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf ./dist && mkdir ./dist",
+    "build:sdk": "node build.js",
+    "build:visx": "tfx extension create --manifest-globs vss-extension.json --output-path ./dist --rev-version",
+    "build": "npm run clean && npm run build:sdk && npm run build:visx"
+  },
+  "keywords": [],
+  "author": "Tom Carter",
+  "license": "MIT",
+  "dependencies": {
+    "vss-web-extension-sdk": "^2.117.0"
+  },
+  "devDependencies": {
+    "fs-extra": "^3.0.1",
+    "rimraf": "^2.6.1",
+    "tfx-cli": "^0.4.8"
+  }
+}
