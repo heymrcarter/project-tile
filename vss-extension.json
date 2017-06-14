@@ -1,7 +1,7 @@
 {
   "manifestVersion": 1,
   "id": "ProjectTile",
-  "version": "1.0.55",
+  "version": "1.0.0",
   "name": "Project Tile",
   "description": "A dashboard tile to show current build status",
   "publisher": "heymrcarter",

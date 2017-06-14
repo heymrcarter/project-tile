@@ -16,7 +16,7 @@
 
     VSS.require(["TFS/Dashboards/WidgetHelpers", "TFS/Build/RestClient"], function (WidgetHelpers, RestClient) {
       WidgetHelpers.IncludeWidgetConfigurationStyles();
-      VSS.register("ProjectTile.Configuration", function () {        
+      VSS.register("ProjectTile.Configuration", function () {
         var projectId = VSS.getWebContext().project.id;
 
         function formatDefinitionValue (id, name) {
@@ -26,11 +26,11 @@
         return {
           load: function (widgetSettings, widgetConfigurationContext) {
             var $buildDefDropdown = $("#build-definition select");
-            
-            function updateLivePreview () {
-              var definition = JSON.parse($buildDefDropdown.val());              
 
-              var customSettings = {              
+            function updateLivePreview () {
+              var definition = JSON.parse($buildDefDropdown.val());
+
+              var customSettings = {
                 data: JSON.stringify({
                   definitionId: definition.id,
                   definitionName: definition.name,
@@ -40,7 +40,7 @@
 
               var eventName = WidgetHelpers.WidgetEvent.ConfigurationChange;
               var eventArgs = WidgetHelpers.WidgetEvent.Args(customSettings);
-              
+
               widgetConfigurationContext.notify(eventName, eventArgs);
             }
 
@@ -50,17 +50,47 @@
                 definitions.forEach(function (definition) {
                   var $option = $('<option>').text(definition.name);
                   var value = formatDefinitionValue(definition.id, definition.name);
-                  $option.val(value);                   
+                  $option.val(value);
                   $buildDefDropdown.append($option);
                 });
               });
 
             $('#friendly-name input').on('keyup', function () {
               updateLivePreview();
+
+              var input = $(this);
+              var inputError = $('#friendly-name .validation-error-text');
+
+              if (input.val().length > 3) {
+                inputError.text('There\'s only room for 3 characters in a 1x1 tile')
+                inputError.parent().css('visibility', 'visible');
+                return;
+              }
+
+              inputError.parent().css('visibility', 'hidden');
             });
-            
+
             $buildDefDropdown.on("change", function () {
-              updateLivePreview();  
+              updateLivePreview();
+            });
+
+            $('#poll-interval input').on('input', function () {
+              var input = $(this);
+              var inputError = $('#poll-interval .validation-error-text');
+
+              if (input.val() === "") {
+                inputError.text('Enter a poll interval')
+                inputError.parent().css('visibility', 'visible');
+                return;
+              }
+
+              if (parseInt(input.val()) < 10) {
+                inputError.text('Poll interval must be at least 10 seconds')
+                inputError.parent().css('visibility', 'visible');
+                return;
+              }
+
+              inputError.parent().css('visibility', 'hidden');
             });
 
             var settings = JSON.parse(widgetSettings.customSettings.data);
@@ -71,11 +101,11 @@
             return WidgetHelpers.WidgetStatusHelper.Success();
           },
           onSave: function () {
-            var $buildDefDropdown = $("#build-definition select");            
-            var buildDefDropdownValue = $buildDefDropdown.val();            
+            var $buildDefDropdown = $("#build-definition select");
+            var buildDefDropdownValue = $buildDefDropdown.val();
             var definition = JSON.parse(buildDefDropdownValue);
 
-            var customSettings = {              
+            var customSettings = {
               data: JSON.stringify({
                 definitionId: definition.id,
                 definitionName: definition.name,
@@ -99,18 +129,28 @@
     <div class="dropdown" id="build-definition">
       <label class="label">Build definition</label>
       <select>
-        <option value="" selected disabled hidden>Please select a build definition</option>          
+        <option value="" selected disabled hidden>Please select a build definition</option>
       </select>
     </div>
 
     <div class="single-line-text-input" id="friendly-name">
       <label>Friendly name</label>
       <input type="text"></input>
+
+      <span class="validation-error">
+        <span class="icon-error-exclamation"></span>
+        <span class="validation-error-text"></span>
+      </span>
     </div>
 
     <div class="single-line-text-input" id="poll-interval">
       <label>Poll interval (in seconds)</label>
       <input type="text" value="30"></input>
+
+      <span class="validation-error">
+        <span class="icon-error-exclamation"></span>
+        <span class="validation-error-text"></span>
+      </span>
     </div>
   </div>
 </body>

@@ -2,7 +2,7 @@
 
 Project Tile is a VSTS/TFS dashboard widget inspired by [Pivotal's Project Monitor](https://github.com/pivotal/projectmonitor).
 
-<img src="https://s3.amazonaws.com/heymrcarter-readme-images/preview-screenshot.jpg" alt="Project Tile dashboard" style="max-width:100%"/>
+<img src="https://s3.amazonaws.com/heymrcarter-readme-images/preview-screenshot.gif" alt="Project Tile dashboard" style="max-width:100%"/>
 
 ## Basics
 
