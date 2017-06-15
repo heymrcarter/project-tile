@@ -5,6 +5,18 @@
   "name": "Project Tile",
   "description": "A dashboard tile to show current build status",
   "publisher": "heymrcarter",
+  "public": true,
+  "tags": [
+    "dashboard",
+    "dashboard widget",
+    "build",
+    "build status",
+    "build indicator",
+    "build result",
+    "CI",
+    "continuous integration",
+    "build monitor"
+  ],
   "targets": [
     {
         "id": "Microsoft.VisualStudio.Services"
