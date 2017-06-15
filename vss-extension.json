@@ -23,7 +23,8 @@
     }
   ],
   "icons": {
-    "default": "img/icon.jpg"
+    "default": "img/icon-128.jpg",
+    "large": "img/icon-512.jpg"
   },
   "categories": ["Build and release"],
   "repository": {
