@@ -57,6 +57,7 @@
         }
       }
     </style>
+    <script src="https://use.fontawesome.com/7bcdd2b6df.js"></script>
     <script src="sdk/scripts/VSS.SDK.min.js"></script>
     <script type="text/javascript">
       VSS.init({
@@ -103,6 +104,30 @@
                   if (settings.definitionName) {
                     $widget.find('.title').text(settings.definitionName);
                   }
+                }
+
+                var limit = builds.length > 5 ? 4 : builds.length;
+                for (var i = 0; i < limit; i++) {
+                  var $history = $widget.find('.history')
+                  var historicalBuild = builds[i]
+
+                  var $historyItem = $('<li>')
+
+                  if (historicalBuild.status === Contracts.BuildStatus.Completed) {
+                    if (historicalBuild.result === Contracts.BuildResult.Succeeded) {
+                      $historyItem.html('<i class="fa fa-check"></i>');
+                    }
+
+                    if (historicalBuild.result === Contracts.BuildResult.Failed) {
+                      $historyItem.html('<i class="fa fa-times"></i>');
+                    }
+                  }
+
+                  if (historicalBuild.status === Contracts.BuildStatus.InProgress) {
+                    $historyItem.html('<i class="fa fa-ellipsis-h"></i>')
+                  }
+
+                  $history.append($historyItem);
                 }
               })
               .catch(function (error) {
@@ -152,6 +177,7 @@
     <div class="widget">
       <h2 class="title">Project Tile</h2>
       <div class="big-count"></div>
+      <ul class="history"></ul>
     </div>
   </body>
 </html>

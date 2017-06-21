@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rimraf ./dist && mkdir ./dist",
     "build:sdk": "node build.js",
-    "build:visx": "tfx extension create --manifest-globs vss-extension.json --output-path ./dist --rev-version",
+    "build:visx": "tfx extension create --manifest-globs vss-extension.json --output-path ./dist",
     "build": "npm run clean && npm run build:sdk && npm run build:visx"
   },
   "keywords": [],

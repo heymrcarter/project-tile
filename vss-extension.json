@@ -1,11 +1,11 @@
 {
   "manifestVersion": 1,
-  "id": "ProjectTile",
-  "version": "1.0.0",
-  "name": "Project Tile",
+  "id": "ProjectTileAlpha",
+  "version": "1.1.0",
+  "name": "Project Tile (Alpha)",
   "description": "A dashboard tile to show current build status",
   "publisher": "heymrcarter",
-  "public": true,
+  "public": false,
   "tags": [
     "dashboard",
     "dashboard widget",
@@ -51,7 +51,7 @@
         "name": "Project Tile",
         "description": "A dashboard tile to current build or release status",
         "catalogIconUrl:": "img/icon.jpg",
-        "previewImageUrl": "img/preview.jpg",                            
+        "previewImageUrl": "img/preview.jpg",
         "uri": "index.html",
         "supportedSizes": [
           {
